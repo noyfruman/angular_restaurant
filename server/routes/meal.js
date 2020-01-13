@@ -4,9 +4,11 @@ const Meal = require('../models/meal');
 
 
 router.post('/meal',async(req,res)=>{
+    const io = req.app.get('io');
     const meal = await new Meal(req.body);
     meal.save().then(()=>{
         res.status(201).send(meal);
+        io.emit('New meal added!!');
     }).catch(e=>{
         res.status(500).send(e)
     })
@@ -54,17 +56,18 @@ router.get('/meal/:name/:type/:price',async(req,res)=>{
     }
     res.send(meal);
 });
-router.put('/meal/:name/update',async(req,res)=>{
+router.patch('/meal/:name',async(req,res)=>{
    const _name = req.params.name;
    try{
-       const meal = await Meal.findOneAndUpdate({name:_name},{$set: req.body});
+       const meal = await Meal.findOneAndUpdate({name:_name},req.body,{new:true,runValidation:true});
        if(!meal){
            return res.status(400).send()
        }
        await meal.save();
+       console.log('meal update!!')
        res.send(meal)
    }catch (e) {
-
+        res.status(400).send(e);
    }
 });
 router.delete('/meal/:name',async (req,res)=>{
