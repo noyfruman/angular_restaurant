@@ -1,0 +1,23 @@
+{
+  "name": "resturent-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "credit-card-regex": "^3.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.5",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.3.0",
+    "validator": "^12.1.0"
+  }
+}
